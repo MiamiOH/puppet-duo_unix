@@ -32,15 +32,15 @@ class duo_unix (
     fail('You must configure a usage of duo_unix, either login or pam.')
   }
 
-  case $::osfamily {
-    'RedHat': {
+  case $facts['os']['name'] {
+    'RedHat', 'CentOS', 'OracleLinux', 'Amazon': {
       $duo_package = 'duo_unix'
       $ssh_service = 'sshd'
       $gpg_file    = '/etc/pki/rpm-gpg/RPM-GPG-KEY-DUO'
 
       $pam_file = $::operatingsystemrelease ? {
         /^5/ => '/etc/pam.d/system-auth',
-        /^(6|7|2014)/ => '/etc/pam.d/password-auth'
+        /^(2|6|7|2014)/ => '/etc/pam.d/password-auth'
       }
 
       $pam_module  = $::architecture ? {
@@ -52,7 +52,7 @@ class duo_unix (
       include duo_unix::yum
       include duo_unix::generic
     }
-    'Debian': {
+    'Debian', 'Ubuntu': {
       $duo_package = 'duo-unix'
       $ssh_service = 'ssh'
       $gpg_file    = '/etc/apt/DEB-GPG-KEY-DUO'
