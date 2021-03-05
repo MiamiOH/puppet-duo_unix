@@ -7,17 +7,17 @@
 # Mark Stanislav <mstanislav@duosecurity.com>
 #
 class duo_unix::yum {
-  $repo_uri = 'http://pkg.duosecurity.com'
+  $repo_uri = '/'
   $package_state = $::duo_unix::package_version
 
   # Map Amazon Linux to RedHat equivalent releases
   # Map RedHat 5 to CentOS 5 equivalent releases
   if $::operatingsystem == 'Amazon' {
     $releasever = $::operatingsystemmajrelease ? {
-      '2014'  => '6Server',
+      '2'  => '7Server',
       default => undef,
     }
-    $os = $::operatingsystem
+    $os = 'CentOS'
   } elsif ( $::operatingsystem == 'RedHat' and
             $::operatingsystemmajrelease == 5 ) {
     $os = 'CentOS'
@@ -55,4 +55,3 @@ class duo_unix::yum {
   }
 
 }
-
