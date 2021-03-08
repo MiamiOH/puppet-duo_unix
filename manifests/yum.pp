@@ -7,7 +7,7 @@
 # Mark Stanislav <mstanislav@duosecurity.com>
 #
 class duo_unix::yum {
-  $repo_uri = '/'
+  $repo_uri = 'http://pkg.duosecurity.com'
   $package_state = $::duo_unix::package_version
 
   # Map Amazon Linux to RedHat equivalent releases
