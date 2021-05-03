@@ -7,7 +7,7 @@
 # Mark Stanislav <mstanislav@duosecurity.com>
 class duo_unix::generic {
   file { '/usr/sbin/login_duo':
-    ensure  => present,
+    ensure  => file,
     owner   => 'root',
     group   => 'root',
     mode    => '4755',
@@ -15,7 +15,7 @@ class duo_unix::generic {
   }
 
   file { $duo_unix::gpg_file:
-    ensure => present,
+    ensure => file,
     owner  => 'root',
     group  => 'root',
     mode   => '0644',

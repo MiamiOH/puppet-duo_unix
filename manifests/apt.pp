@@ -23,7 +23,7 @@ class duo_unix::apt {
       File[$repo_file],
       Exec['Duo Security GPG Import'],
       Exec['duo-security-apt-update']
-    ]
+    ],
   }
 
   file { $repo_file:
@@ -31,17 +31,17 @@ class duo_unix::apt {
     group   => 'root',
     mode    => '0644',
     content => "deb ${repo_uri}/${::operatingsystem} ${::lsbdistcodename} main",
-    notify  => Exec['duo-security-apt-update']
+    notify  => Exec['duo-security-apt-update'],
   }
 
   exec { 'duo-security-apt-update':
     command     => '/usr/bin/apt-get update',
-    refreshonly => true
+    refreshonly => true,
   }
 
   exec { 'Duo Security GPG Import':
     command => '/usr/bin/apt-key add /etc/apt/DEB-GPG-KEY-DUO',
     unless  => '/usr/bin/apt-key list | grep "Duo Security"',
-    notify  => Exec['duo-security-apt-update']
+    notify  => Exec['duo-security-apt-update'],
   }
 }

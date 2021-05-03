@@ -11,7 +11,7 @@ class duo_unix::pam inherits duo_unix {
   $aug_match    = "${aug_pam_path}/*/module[. = '${duo_unix::pam_module}']"
 
   file { '/etc/duo/pam_duo.conf':
-    ensure  => present,
+    ensure  => file,
     owner   => 'root',
     group   => 'root',
     mode    => '0600',
@@ -24,7 +24,7 @@ class duo_unix::pam inherits duo_unix {
       changes => [
         'set /files/etc/ssh/sshd_config/UsePAM yes',
         'set /files/etc/ssh/sshd_config/UseDNS no',
-        'set /files/etc/ssh/sshd_config/ChallengeResponseAuthentication yes'
+        'set /files/etc/ssh/sshd_config/ChallengeResponseAuthentication yes',
       ],
       require => Package[$duo_unix::duo_package],
       notify  => Service[$duo_unix::ssh_service];
@@ -39,7 +39,7 @@ class duo_unix::pam inherits duo_unix {
           "ins 100 after ${aug_pam_path}/2",
           "set ${aug_pam_path}/100/type auth",
           "set ${aug_pam_path}/100/control sufficient",
-          "set ${aug_pam_path}/100/module ${duo_unix::pam_module}"
+          "set ${aug_pam_path}/100/module ${duo_unix::pam_module}",
         ],
         require => Package[$duo_unix::duo_package],
         onlyif  => "match ${aug_match} size == 0";
@@ -52,7 +52,7 @@ class duo_unix::pam inherits duo_unix {
           "ins 100 after ${aug_pam_path}/1",
           "set ${aug_pam_path}/100/type auth",
           "set ${aug_pam_path}/100/control '[success=1 default=ignore]'",
-          "set ${aug_pam_path}/100/module ${duo_unix::pam_module}"
+          "set ${aug_pam_path}/100/module ${duo_unix::pam_module}",
         ],
         require => Package[$duo_unix::duo_package],
         onlyif  => "match ${aug_match} size == 0";

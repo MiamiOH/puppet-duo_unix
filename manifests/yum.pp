@@ -14,12 +14,12 @@ class duo_unix::yum {
   # Map RedHat 5 to CentOS 5 equivalent releases
   if $::operatingsystem == 'Amazon' {
     $releasever = $::operatingsystemmajrelease ? {
-      '2014'  => '6Server',
+      '2'  => '7Server',
       default => undef,
     }
-    $os = $::operatingsystem
+    $os = 'CentOS'
   } elsif ( $::operatingsystem == 'RedHat' and
-            $::operatingsystemmajrelease == 5 ) {
+  versioncmp($::operatingsystemmajrelease, '5') == 0 ) {
     $os = 'CentOS'
     $releasever = '$releasever'
   } elsif ( $::operatingsystem == 'OracleLinux' ) {
@@ -51,8 +51,7 @@ class duo_unix::yum {
 
   exec { 'Duo Security GPG Import':
     command => '/bin/rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-DUO',
-    unless  => '/bin/rpm -qi gpg-pubkey | grep Duo > /dev/null 2>&1'
+    unless  => '/bin/rpm -qi gpg-pubkey | grep Duo > /dev/null 2>&1',
   }
 
 }
-
