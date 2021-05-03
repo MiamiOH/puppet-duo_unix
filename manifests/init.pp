@@ -6,12 +6,12 @@
 #
 # Mark Stanislav <mstanislav@duosecurity.com>
 class duo_unix (
-  $usage = '',
-  $ikey = '',
-  $skey = '',
-  $host = '',
-  $group = '',
-  $http_proxy = '',
+  $usage = undef,
+  $ikey = undef,
+  $skey = undef,
+  $host = undef,
+  $group = undef,
+  $http_proxy = undef,
   $fallback_local_ip = 'no',
   $failmode = 'safe',
   $pushinfo = 'no',
@@ -44,9 +44,9 @@ class duo_unix (
       }
 
       $pam_module  = $::architecture ? {
-        i386   => '/lib/security/pam_duo.so',
-        i686   => '/lib/security/pam_duo.so',
-        x86_64 => '/lib64/security/pam_duo.so'
+        'i386'   => '/lib/security/pam_duo.so',
+        'i686'   => '/lib/security/pam_duo.so',
+        'x86_64' => '/lib64/security/pam_duo.so'
       }
 
       include duo_unix::yum
@@ -59,9 +59,9 @@ class duo_unix (
       $pam_file    = '/etc/pam.d/common-auth'
 
       $pam_module  = $::architecture ? {
-        i386  => '/lib/security/pam_duo.so',
-        i686  => '/lib/security/pam_duo.so',
-        amd64 => '/lib64/security/pam_duo.so'
+        'i386'  => '/lib/security/pam_duo.so',
+        'i686'  => '/lib/security/pam_duo.so',
+        'amd64' => '/lib64/security/pam_duo.so'
       }
 
       include duo_unix::apt

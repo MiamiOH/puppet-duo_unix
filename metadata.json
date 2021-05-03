@@ -1,34 +1,61 @@
 {
   "name": "duosecurity-duo_unix",
-  "version": "0.3.3",
+  "version": "1.0.0",
   "author": "Duo Security",
   "summary": "Installs, configures, and manages Duo Unix.",
   "license": "GPL-2.0",
   "source": "https://github.com/duosecurity/puppet-duo_unix",
   "project_page": "https://www.duosecurity.com/docs/duounix",
   "issues_url": "https://github.com/duosecurity/puppet-duo_unix/issues",
+  "dependencies": [
+
+  ],
   "operatingsystem_support": [
     {
       "operatingsystem": "RedHat",
-      "operatingsystemrelease": [ "6", "7" ]
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
     },
     {
       "operatingsystem": "CentOS",
-      "operatingsystemrelease": [ "5", "6", "7" ]
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
     },
     {
       "operatingsystem": "OracleLinux",
-      "operatingsystemrelease": [ "7" ]
+      "operatingsystemrelease": [
+        "7"
+      ]
     },
     {
       "operatingsystem": "Debian",
-      "operatingsystemrelease": [ "6", "7", "8" ]
+      "operatingsystemrelease": [
+        "6",
+        "7",
+        "8"
+      ]
     },
     {
       "operatingsystem": "Ubuntu",
-      "operatingsystemrelease": [ "12.04", "14.04" ]
+      "operatingsystemrelease": [
+        "12.04",
+        "14.04"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 6.21.0 < 8.0.0"
     }
   ],
   "description": "Duo Unix Puppet module.",
-  "dependencies": []
+  "pdk-version": "2.1.0",
+  "template-url": "pdk-default#2.1.0",
+  "template-ref": "tags/2.1.0-0-ga675ea5"
 }
