@@ -14,7 +14,7 @@
 ## Overview
 
 The duo_unix Puppet module installs and manages duo_unix (`login_duo` or `pam_duo`).
-
+ii
 ## Description
 
 The duo_unix module handles the deployment of duo_unix (`login_duo` or 
