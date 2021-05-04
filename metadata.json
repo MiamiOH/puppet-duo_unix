@@ -1,12 +1,12 @@
 {
-  "name": "duosecurity-duo_unix",
-  "version": "1.0.0",
+  "name": "MiamiOH-duo_unix",
+  "version": "1.0.1",
   "author": "Duo Security",
   "summary": "Installs, configures, and manages Duo Unix.",
-  "license": "GPL-2.0",
-  "source": "https://github.com/duosecurity/puppet-duo_unix",
+  "license": "GPL-3.0+",
+  "source": "https://github.com/MiamiOH/puppet-duo_unix",
   "project_page": "https://www.duosecurity.com/docs/duounix",
-  "issues_url": "https://github.com/duosecurity/puppet-duo_unix/issues",
+  "issues_url": "https://github.com/MiamiOH/puppet-duo_unix/issues",
   "dependencies": [
 
   ],
