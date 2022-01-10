@@ -6,6 +6,8 @@
 #
 # Mark Stanislav <mstanislav@duosecurity.com>
 class duo_unix (
+  String $package_version,
+  String $repo_uri,
   $usage = undef,
   $ikey = undef,
   $skey = undef,
@@ -22,7 +24,6 @@ class duo_unix (
   $manage_ssh = true,
   $manage_pam = true,
   $pam_unix_control = 'requisite',
-  $package_version = 'installed',
 ) {
   if $ikey == '' or $skey == '' or $host == '' {
     fail('ikey, skey, and host must all be defined.')

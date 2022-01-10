@@ -7,8 +7,6 @@
 # Mark Stanislav <mstanislav@duosecurity.com>
 #
 class duo_unix::yum {
-  $repo_uri = 'http://pkg.duosecurity.com'
-  $package_state = $::duo_unix::package_version
 
   # Map Amazon Linux to RedHat equivalent releases
   # Map RedHat 5 to CentOS 5 equivalent releases
@@ -32,7 +30,7 @@ class duo_unix::yum {
 
   yumrepo { 'duosecurity':
     descr    => 'Duo Security Repository',
-    baseurl  => "${repo_uri}/${os}/${releasever}/\$basearch",
+    baseurl  => "${duo_unix::repo_uri}/${os}/${releasever}/\$basearch",
     gpgcheck => '1',
     enabled  => '1',
     require  => File['/etc/pki/rpm-gpg/RPM-GPG-KEY-DUO'];
@@ -45,13 +43,14 @@ class duo_unix::yum {
   }
 
   package {  $duo_unix::duo_package:
-    ensure  => $package_state,
+    ensure  => $duo_unix::package_version,
     require => [ Yumrepo['duosecurity'], Exec['Duo Security GPG Import'] ];
   }
 
   exec { 'Duo Security GPG Import':
-    command => '/bin/rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-DUO',
-    unless  => '/bin/rpm -qi gpg-pubkey | grep Duo > /dev/null 2>&1',
+    command     => '/bin/rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-DUO',
+    subscribe   => File[ $duo_unix::gpg_file ],
+    refreshonly => true,
   }
 
 }
