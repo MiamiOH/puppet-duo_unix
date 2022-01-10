@@ -1,1 +1,3 @@
---- {}
+---
+duo_unix::package_version: installed
+duo_unix::repo_uri: https://pkg.duosecurity.com
