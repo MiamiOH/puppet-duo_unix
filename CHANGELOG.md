@@ -1,6 +1,9 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## Release 1.0.4
+Update default repo_uri
+Fix notify on gpg file change
 
 ## Release 1.0.3
 
