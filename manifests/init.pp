@@ -41,7 +41,7 @@ class duo_unix (
 
       $pam_file = $::operatingsystemrelease ? {
         /^5/ => '/etc/pam.d/system-auth',
-        /^(2|6|7|2014)/ => '/etc/pam.d/password-auth'
+        /^(2|6|7|8|2014)/ => '/etc/pam.d/password-auth'
       }
 
       $pam_module  = $::architecture ? {
