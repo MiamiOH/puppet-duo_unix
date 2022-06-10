@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 1.0.6
+Update GPG Signature
+
 ## Release 1.0.5
 Add oel-8 support
 
