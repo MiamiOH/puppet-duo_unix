@@ -21,7 +21,7 @@ class duo_unix::yum {
     $os = 'CentOS'
     $releasever = '$releasever'
   } elsif ( $::operatingsystem == 'OracleLinux' ) {
-    $os = 'CentOS'
+    $os = 'RedHat'
     $releasever = '$releasever'
   } else {
     $os = $::operatingsystem

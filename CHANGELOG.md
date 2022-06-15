@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 1.0.7
+Fix baseurl error for OEL8
+
 ## Release 1.0.6
 Update GPG Signature
 
