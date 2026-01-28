@@ -1,6 +1,6 @@
 {
   "name": "MiamiOH-duo_unix",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "author": "Duo Security",
   "summary": "Installs, configures, and manages Duo Unix.",
   "license": "GPL-3.0+",
@@ -24,6 +24,12 @@
         "5",
         "6",
         "7"
+      ]
+    },
+    {
+      "operatingsystem": "Rocky",
+      "operatingsystemrelease": [
+        "9"
       ]
     },
     {
