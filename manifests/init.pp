@@ -34,32 +34,14 @@ class duo_unix (
   }
 
   case $facts['os']['name'] {
-    'RedHat', 'CentOS', 'OracleLinux', 'Amazon': {
+    'RedHat', 'CentOS', 'OracleLinux', 'Amazon', 'Rocky': {
       $duo_package = 'duo_unix'
       $ssh_service = 'sshd'
       $gpg_file    = '/etc/pki/rpm-gpg/RPM-GPG-KEY-DUO'
 
       $pam_file = $::operatingsystemrelease ? {
         /^5/ => '/etc/pam.d/system-auth',
-        /^(2|6|7|8|2014)/ => '/etc/pam.d/password-auth'
-      }
-
-      $pam_module  = $::architecture ? {
-        'i386'   => '/lib/security/pam_duo.so',
-        'i686'   => '/lib/security/pam_duo.so',
-        'x86_64' => '/lib64/security/pam_duo.so'
-      }
-
-      include duo_unix::yum
-      include duo_unix::generic
-    }
-    'Rocky': {
-      $duo_package = 'duo_unix'
-      $ssh_service = 'sshd'
-      $gpg_file    = '/etc/pki/rpm-gpg/RPM-GPG-KEY-DUO'
-
-      $pam_file = $::operatingsystemrelease ? {
-        /^9/ => '/etc/pam.d/password-auth'
+        /^(2|6|7|8|9|2014)/ => '/etc/pam.d/password-auth'
       }
 
       $pam_module  = $::architecture ? {
