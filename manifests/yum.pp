@@ -20,7 +20,7 @@ class duo_unix::yum {
   versioncmp($::operatingsystemmajrelease, '5') == 0 ) {
     $os = 'CentOS'
     $releasever = '$releasever'
-  } elsif ( $::operatingsystem == 'OracleLinux' ) {
+  } elsif ( $::operatingsystem in ['OracleLinux', 'Rocky'] ) {
     $os = 'RedHat'
     $releasever = '$releasever'
   } else {

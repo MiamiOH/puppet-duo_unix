@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 1.0.9
+Rocky-9-repo-changes
+
+## Release 1.0.8
+Allow Rocky 9
+
 ## Release 1.0.7
 Fix baseurl error for OEL8
 
