@@ -5,6 +5,7 @@
 # === Authors
 #
 # Mark Stanislav <mstanislav@duosecurity.com>
+#
 class duo_unix (
   String $package_version,
   String $repo_uri,
@@ -39,15 +40,16 @@ class duo_unix (
       $ssh_service = 'sshd'
       $gpg_file    = '/etc/pki/rpm-gpg/RPM-GPG-KEY-DUO'
 
-      $pam_file = $::operatingsystemrelease ? {
-        /^5/ => '/etc/pam.d/system-auth',
-        /^(2|6|7|8|9|2014)/ => '/etc/pam.d/password-auth'
+      $pam_file = $facts['os']['release']['major'] ? {
+        '5'              => '/etc/pam.d/system-auth',
+        /(2|6|7|8|9|2014)/ => '/etc/pam.d/password-auth',
+        default          => '/etc/pam.d/password-auth',
       }
 
-      $pam_module  = $::architecture ? {
-        'i386'   => '/lib/security/pam_duo.so',
-        'i686'   => '/lib/security/pam_duo.so',
-        'x86_64' => '/lib64/security/pam_duo.so'
+      $pam_module  = $facts['os']['architecture'] ? {
+        /(i386|i686)/ => '/lib/security/pam_duo.so',
+        'x86_64'      => '/lib64/security/pam_duo.so',
+        default       => '/lib64/security/pam_duo.so',
       }
 
       include duo_unix::yum
@@ -59,17 +61,17 @@ class duo_unix (
       $gpg_file    = '/etc/apt/DEB-GPG-KEY-DUO'
       $pam_file    = '/etc/pam.d/common-auth'
 
-      $pam_module  = $::architecture ? {
-        'i386'  => '/lib/security/pam_duo.so',
-        'i686'  => '/lib/security/pam_duo.so',
-        'amd64' => '/lib64/security/pam_duo.so'
+      $pam_module  = $facts['os']['architecture'] ? {
+        /(i386|i686)/    => '/lib/security/pam_duo.so',
+        /(amd64|x86_64)/ => '/lib64/security/pam_duo.so',
+        default          => '/lib64/security/pam_duo.so',
       }
 
       include duo_unix::apt
       include duo_unix::generic
     }
     default: {
-      fail("Module ${module_name} does not support ${::operatingsystem}")
+      fail("Module ${module_name} does not support ${facts['os']['name']}")
     }
   }
 

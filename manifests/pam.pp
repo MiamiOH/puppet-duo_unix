@@ -32,7 +32,7 @@ class duo_unix::pam inherits duo_unix {
   }
 
   if $duo_unix::manage_pam {
-    if $::osfamily == 'RedHat' {
+    if $facts['os']['family'] == 'RedHat' {
       augeas { 'PAM Configuration':
         changes => [
           "set ${aug_pam_path}/2/control ${duo_unix::pam_unix_control}",

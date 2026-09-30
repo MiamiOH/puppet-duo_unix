@@ -8,23 +8,21 @@
 #
 class duo_unix::yum {
 
-  # Map Amazon Linux to RedHat equivalent releases
-  # Map RedHat 5 to CentOS 5 equivalent releases
-  if $::operatingsystem == 'Amazon' {
-    $releasever = $::operatingsystemmajrelease ? {
-      '2'  => '7Server',
+  if $facts['os']['name'] == 'Amazon' {
+    $releasever = $facts['os']['release']['major'] ? {
+      '2'     => '7Server',
       default => undef,
     }
     $os = 'CentOS'
-  } elsif ( $::operatingsystem == 'RedHat' and
-  versioncmp($::operatingsystemmajrelease, '5') == 0 ) {
+  } elsif ( $facts['os']['name'] == 'RedHat' and
+  versioncmp($facts['os']['release']['major'], '5') == 0 ) {
     $os = 'CentOS'
     $releasever = '$releasever'
-  } elsif ( $::operatingsystem in ['OracleLinux', 'Rocky'] ) {
+  } elsif ( $facts['os']['name'] in ['OracleLinux', 'Rocky'] ) {
     $os = 'RedHat'
     $releasever = '$releasever'
   } else {
-    $os = $::operatingsystem
+    $os = $facts['os']['name']
     $releasever = '$releasever'
   }
 
@@ -38,11 +36,11 @@ class duo_unix::yum {
 
   if $duo_unix::manage_ssh {
     package { 'openssh-server':
-      ensure => installed;
+      ensure => installed,
     }
   }
 
-  package {  $duo_unix::duo_package:
+  package { $duo_unix::duo_package:
     ensure  => $duo_unix::package_version,
     require => [ Yumrepo['duosecurity'], Exec['Duo Security GPG Import'] ];
   }
