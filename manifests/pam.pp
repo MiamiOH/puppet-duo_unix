@@ -6,7 +6,7 @@
 #
 # Mark Stanislav <mstanislav@duosecurity.com>
 #
-class duo_unix::pam inherits duo_unix {
+class duo_unix::pam {
   $aug_pam_path = "/files${duo_unix::pam_file}"
   $aug_match    = "${aug_pam_path}/*/module[. = '${duo_unix::pam_module}']"
 
@@ -44,7 +44,6 @@ class duo_unix::pam inherits duo_unix {
         require => Package[$duo_unix::duo_package],
         onlyif  => "match ${aug_match} size == 0";
       }
-
     } else {
       augeas { 'PAM Configuration':
         changes => [

@@ -28,5 +28,4 @@ class duo_unix::generic {
       enable => true;
     }
   }
-
 }

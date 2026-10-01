@@ -6,8 +6,7 @@
 #
 # Mark Stanislav <mstanislav@duosecurity.com>
 #
-class duo_unix::login inherits duo_unix {
-
+class duo_unix::login {
   file { '/etc/duo/login_duo.conf':
     ensure  => file,
     owner   => 'sshd',
@@ -28,5 +27,4 @@ class duo_unix::login inherits duo_unix {
       notify  => Service[$duo_unix::ssh_service];
     }
   }
-
 }

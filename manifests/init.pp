@@ -6,31 +6,51 @@
 #
 # Mark Stanislav <mstanislav@duosecurity.com>
 #
+# @summary Core class for duo_unix module
+#
+# @param package_version The package version to install (e.g., 'installed', 'latest', or a specific version).
+# @param repo_uri The base URI for the Duo repository.
+# @param ikey Duo integration key.
+# @param skey Duo secret key.
+# @param host Duo API host.
+# @param group Optional group restriction for Duo authentication.
+# @param http_proxy Optional HTTP proxy configuration.
+# @param usage The usage type for duo_unix, either 'login' or 'pam'.
+# @param fallback_local_ip Fallback local IP setting ('yes' or 'no').
+# @param failmode Failure mode ('safe' or 'secure').
+# @param pushinfo Push info setting ('yes' or 'no').
+# @param autopush Auto push setting ('yes' or 'no').
+# @param motd MOTD display setting ('yes' or 'no').
+# @param prompts Number of prompts.
+# @param accept_env_factor Accept environment factor setting ('yes' or 'no').
+# @param manage_ssh Whether to manage openssh-server package and sshd configuration.
+# @param manage_pam Whether to manage PAM configuration.
+# @param pam_unix_control PAM control flag for unix module.
 class duo_unix (
   String $package_version,
   String $repo_uri,
-  $usage = undef,
-  $ikey = undef,
-  $skey = undef,
-  $host = undef,
-  $group = undef,
-  $http_proxy = undef,
-  $fallback_local_ip = 'no',
-  $failmode = 'safe',
-  $pushinfo = 'no',
-  $autopush = 'no',
-  $motd = 'no',
-  $prompts = '3',
-  $accept_env_factor = 'no',
-  $manage_ssh = true,
-  $manage_pam = true,
-  $pam_unix_control = 'requisite',
+  String $ikey,
+  String $skey,
+  String $host,
+  Optional[String] $group = undef,
+  Optional[String] $http_proxy = undef,
+  Optional[Enum['login', 'pam']] $usage = undef,
+  String $fallback_local_ip = 'no',
+  String $failmode = 'safe',
+  String $pushinfo = 'no',
+  String $autopush = 'no',
+  String $motd = 'no',
+  String $prompts = '3',
+  String $accept_env_factor = 'no',
+  Boolean $manage_ssh = true,
+  Boolean $manage_pam = true,
+  String $pam_unix_control = 'requisite',
 ) {
   if $ikey == '' or $skey == '' or $host == '' {
-    fail('ikey, skey, and host must all be defined.')
+    fail('ikey, skey, and host must all be defined')
   }
 
-  if $usage != 'login' and $usage != 'pam' {
+  if $usage == undef {
     fail('You must configure a usage of duo_unix, either login or pam.')
   }
 
