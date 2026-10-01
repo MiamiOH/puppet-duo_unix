@@ -33,6 +33,20 @@ describe 'duo_unix::pam' do
 
       it { is_expected.to contain_augeas('Duo Security SSH Configuration') }
       it { is_expected.to contain_augeas('PAM Configuration') }
+
+      it do
+        is_expected.to contain_file('/etc/duo/pam_duo.conf')
+          .with_content(%r{ikey=DIXXXXXXXXXXXXXXXXXX})
+          .with_content(%r{skey=deadbeefdeadbeefdeadbeefdeadbeefdeadbeef})
+          .with_content(%r{host=api-XXXXXXXX\.duosecurity\.com})
+          .with_content(%r{fallback_local_ip=no})
+          .with_content(%r{failmode=safe})
+          .with_content(%r{pushinfo=no})
+          .with_content(%r{autopush=no})
+          .with_content(%r{prompts=3})
+          .with_content(%r{accept_env_factor=no})
+      end
+
     end
   end
 end
