@@ -3,4 +3,11 @@
 ---
 fixtures:
   forge_modules:
-#     stdlib: "puppetlabs/stdlib"
+    yumrepo_core:
+      repo: "puppetlabs/yumrepo_core"
+      ref: "3.0.0"
+    augeas_core:
+      repo: "puppetlabs/augeas_core"
+      ref: "2.0.0"
+  symlinks:
+    duo_unix: "#{source_dir}"

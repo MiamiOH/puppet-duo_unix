@@ -9,11 +9,11 @@
 class duo_unix::apt {
   $repo_file = '/etc/apt/sources.list.d/duosecurity.list'
   $repo_uri  = 'http://pkg.duosecurity.com'
-  $package_state = $::duo_unix::package_version
+  $package_state = $duo_unix::package_version
 
-  if $::duo_unix::manage_ssh {
+  if $duo_unix::manage_ssh {
     package { 'openssh-server':
-      ensure => installed;
+      ensure => installed,
     }
   }
 
@@ -30,7 +30,7 @@ class duo_unix::apt {
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => "deb ${repo_uri}/${::operatingsystem} ${::lsbdistcodename} main",
+    content => "deb ${repo_uri}/${facts['os']['name']} ${facts['os']['distro']['codename']} main",
     notify  => Exec['duo-security-apt-update'],
   }
 

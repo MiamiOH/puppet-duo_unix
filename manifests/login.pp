@@ -6,7 +6,20 @@
 #
 # Mark Stanislav <mstanislav@duosecurity.com>
 #
-class duo_unix::login inherits duo_unix {
+class duo_unix::login {
+  $ikey              = $duo_unix::ikey
+  $skey              = $duo_unix::skey
+  $host              = $duo_unix::host
+  $group             = $duo_unix::group
+  $http_proxy        = $duo_unix::http_proxy
+  $fallback_local_ip = $duo_unix::fallback_local_ip
+  $failmode          = $duo_unix::failmode
+  $pushinfo          = $duo_unix::pushinfo
+  $autopush          = $duo_unix::autopush
+  $motd              = $duo_unix::motd
+  $prompts           = $duo_unix::prompts
+  $accept_env_factor = $duo_unix::accept_env_factor
+  $usage             = $duo_unix::usage
 
   file { '/etc/duo/login_duo.conf':
     ensure  => file,
@@ -28,5 +41,4 @@ class duo_unix::login inherits duo_unix {
       notify  => Service[$duo_unix::ssh_service];
     }
   }
-
 }

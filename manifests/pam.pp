@@ -6,7 +6,22 @@
 #
 # Mark Stanislav <mstanislav@duosecurity.com>
 #
-class duo_unix::pam inherits duo_unix {
+
+class duo_unix::pam {
+  $ikey              = $duo_unix::ikey
+  $skey              = $duo_unix::skey
+  $host              = $duo_unix::host
+  $group             = $duo_unix::group
+  $http_proxy        = $duo_unix::http_proxy
+  $fallback_local_ip = $duo_unix::fallback_local_ip
+  $failmode          = $duo_unix::failmode
+  $pushinfo          = $duo_unix::pushinfo
+  $autopush          = $duo_unix::autopush
+  $motd              = $duo_unix::motd
+  $prompts           = $duo_unix::prompts
+  $accept_env_factor = $duo_unix::accept_env_factor
+  $usage             = $duo_unix::usage
+
   $aug_pam_path = "/files${duo_unix::pam_file}"
   $aug_match    = "${aug_pam_path}/*/module[. = '${duo_unix::pam_module}']"
 
@@ -32,7 +47,7 @@ class duo_unix::pam inherits duo_unix {
   }
 
   if $duo_unix::manage_pam {
-    if $::osfamily == 'RedHat' {
+    if $facts['os']['family'] == 'RedHat' {
       augeas { 'PAM Configuration':
         changes => [
           "set ${aug_pam_path}/2/control ${duo_unix::pam_unix_control}",
@@ -44,7 +59,6 @@ class duo_unix::pam inherits duo_unix {
         require => Package[$duo_unix::duo_package],
         onlyif  => "match ${aug_match} size == 0";
       }
-
     } else {
       augeas { 'PAM Configuration':
         changes => [
